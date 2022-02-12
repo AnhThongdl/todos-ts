@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import './App.css'
+import CreateTodos from './components/CreateTodos'
+import Header from './components/Header'
+import TodosList from './components/TodosList'
+import { Todo } from './models/todo.model'
 
 function App() {
+  const [todos, setTodos] = useState<Todo[]>([
+    {
+      id: new Date().toString(),
+      title: 'Meeting',
+      text: 'Schedule meeting with team',
+      color: '#dfdfdf',
+      date: new Date().toString(),
+    },
+  ])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Header />
+      <Container className="mt-5">
+        <Row>
+          <Col sm={6}>
+            <TodosList todos={todos} setTodos={setTodos} />
+          </Col>
+          {/* </Row> */}
+          {/* <Row> */}
+          <Col sm={6}>
+            <CreateTodos todos={todos} setTodos={setTodos} />
+          </Col>
+        </Row>
+      </Container>
+    </>
+  )
 }
 
-export default App;
+export default App
